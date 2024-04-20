@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental App</title>
+    <link rel="stylesheet" href="userside.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+</head>
+<body>
+    <header id="header">
+        <p>Rental App</p>
+        <span class="user-button"><button id="user_open" onclick="logout()"><i class="uil uil-user-circle user_icon"></i></button></span>
+    </header>
+    <div class="userpanel">
+        <div class="usercontent">
+            <a><h4 id="backBtn">&larr; Back</h4></a>
+            <h2>User:</h2><br>
+            <label id="usn"></label><br>
+            <h2>Email:</h2><br>
+            <label id="eml"></label><br>
+            <button id="logout" onclick="signout()">Logout</button>
+        </div>
+    </div>
+    <!--<nav>
+        <ul class="nav_list">
+            <li>Home</li>
+            <li>Pay</li>
+            <li>Payment Record</li>
+            <span id="searchbox">
+                <input type="text" id="search" name="search" placeholder="Search...">
+            </span>
+        </ul>
+    </nav>-->
+    <div id="BG1">
+        <center><span id="searchbox">
+            <input type="text" id="search" name="search" placeholder="Search...">
+        </span></center>
+        <center><a href=""><button id="available">Available</button></a>
+            <a href="occupied.html"><button id="occupied">Occupied</button></a></center>
+            <div class="av_imgs">
+                <div><img id="slot4" src="photos/slot4.jpg" alt="cannot view image" onclick="handleImageClick('Slot#4', '100 sqm')">
+                    <p>Slot#4</p></div>
+                <div><img id="slot5" src="photos/slot5.jpg" alt="cannot view image" onclick="handleImageClick('Slot#5', '110 sqm')">
+                    <p>Slot#5</p></div>
+                <div><img id="slot6" src="photos/slot6.jpg" alt="cannot view image" onclick="handleImageClick('Slot#6', '120 sqm')">
+                    <p>Slot#6</p></div>
+                <div><img id="slot7" src="photos/slot7.jpg" alt="cannot view image" onclick="handleImageClick('Slot#7', '125 sqm')">
+                    <p>Slot#7</p></div>
+                <div><img id="slot8" src="photos/slot8.jpg" alt="cannot view image" onclick="handleImageClick('Slot#8', '115 sqm')">
+                    <p>Slot#8</p></div>
+                <div><img id="slot9" src="photos/slot9.jpg" alt="cannot view image" onclick="handleImageClick('Slot#9', '200 sqm')">
+                    <p>Slot#9</p></div>
+            </div>
+            
+            <div id="expandedImage" class="image-panel" style="display: none">
+                <span onclick="closeImagePanel()" style="cursor: pointer; float: right;">&times;</span>
+                <img id="expandedImgSrc" src="" alt="">
+                <div id="imageInfo"></div>
+                <button id="reserveButton" class="reserve-button" onclick="sendImageToReceiver()">+ Reserve</button>
+            </div>
+            <!--<center><div id="expandedImage" style="display: none;">
+                <img id="expandedImgSrc" src="" alt="">
+                <button id="reserveButton" class="reserve-button" onclick="sendImageToReceiver()">+ Reserve</button>
+            </div></center>-->
+
+            <center><div class="payment-modal">
+                <div class="payment-form">
+                    <span class="close" id="closePayment">&times;</span><br>
+                    <button onclick="daily()">DAILY</button>
+                    <button onclick="weekly()">WEEKLY</button>
+                    <button onclick="monthly()">MONTHLY</button>
+                </div>
+            </div></center>
+
+            <center><div class="payModal">
+                <div class="payForm">
+                    <label for="type">Type of Payment</label><br>
+                    Gcash
+                    <input type="radio" value="gcash" id="gcash" name="type"><br>
+                    Bank Transfer
+                    <input type="radio" value="bank" id="bank" name="type"><br>
+                    <label class="left-label" for="amount">Amount</label><br>
+                    <input type="number" id="amount" name="amount" min=1 placeholder="Enter amount..." required><br>
+                    <label class="left-label" for="contact">Contact</label><br>
+                    <input type="tel" id="contact" name="contact" placeholder="Enter your contact number.." required><br>
+                    <label class="left-label" for="proof">Proof of payment</label><br>
+                    <div id="imageBox"></div><br>
+                    <center><input type="file" id="choosePhoto" placeholder="Choose Photo" accept="image/*" onchange="previewImage(event)" required></center><br>
+                    <button id="sub" onclick="SubmitPayment()">Submit Payment</button>
+                    <button id="can" onclick="Cancel()">Cancel Reservation</button>
+                </div>
+            </div></center>
+            <div id="gcashDiv" style="display:none;">
+                <div id="gcash-qr"><img src="photos/gcash.jpeg" alt="cannot view" srcset=""></div>
+            </div>
+            <div class="bankTransfer">
+                <div class="transferForm">
+                    <form action="">
+                        <label for="Banks">Select a Bank</label><br>
+                        <select name="bankList" id="bankList">
+                            <option value="BDO">BDO</option>
+                            <option value="Chinabank">Chinabank</option>
+                            <option value="BPI">BPI</option>
+                            <option value="Metro">Metrobank</option>
+                            <option value="Landbank">LANDBANK</option>
+                            <option value="Unionbank">UnionBank</option>
+                            <option value="Eastwest">Eastwest</option>
+                            <option value="RCBC">RCBC</option>
+                        </select><br>
+                        <label for="Amount">Amount(Max of PHP 50,000)</label><br>
+                        <input type="number" min="1" max="50000" step=".01" id="bAmount" placeholder="0.00" required><br>
+                        <label for="AccountName">Account Name</label><br>
+                        <input type="text" id="accname" maxlength="50" placeholder="Max of 50 characters" required><br>
+                        <label for="AccNum">Account Number</label><br>
+                        <input type="number" id="AccNum" name="AccNum" placeholder="12 digits" max="999999999999" required><br>
+                        <label for="SendRec">Send Receipt to (Optional)</label><br>
+                        <input type="email"><br>
+                        <center><input type="submit" id="Done" value="Done" onclick="done(amnt)"></center>
+
+                    </form>
+                </div>
+            </div>
+    </div>
+
+    <script src="users.js"></script>
+    <script src="slot.js"></script>
+    <script src="logout.js"></script>
+</body>
+</html>
